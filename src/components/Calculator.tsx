@@ -283,86 +283,34 @@ export default function Calculator({}: CalculatorProps) {
             </div>
           </div>
 
-          {/* Numbers arranged in perfect circle */}
-          {/* 0 - Top (12 o'clock) */}
-          <NumberButton 
-            onClick={() => inputNumber('0')} 
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          >
-            0
-          </NumberButton>
-          
-          {/* 1 - 1 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '15%', left: '75%' }}
-          >
-            <NumberButton onClick={() => inputNumber('1')}>1</NumberButton>
-          </div>
-          
-          {/* 2 - 2 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '35%', left: '90%' }}
-          >
-            <NumberButton onClick={() => inputNumber('2')}>2</NumberButton>
-          </div>
-          
-          {/* 3 - Right (3 o'clock) */}
-          <NumberButton 
-            onClick={() => inputNumber('3')} 
-            className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2"
-          >
-            3
-          </NumberButton>
-          
-          {/* 4 - 4 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '65%', left: '90%' }}
-          >
-            <NumberButton onClick={() => inputNumber('4')}>4</NumberButton>
-          </div>
-          
-          {/* 5 - 5 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '85%', left: '75%' }}
-          >
-            <NumberButton onClick={() => inputNumber('5')}>5</NumberButton>
-          </div>
-          
-          {/* 6 - Bottom (6 o'clock) */}
-          <NumberButton 
-            onClick={() => inputNumber('6')} 
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2"
-          >
-            6
-          </NumberButton>
-          
-          {/* 7 - 7 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '85%', left: '25%' }}
-          >
-            <NumberButton onClick={() => inputNumber('7')}>7</NumberButton>
-          </div>
-          
-          {/* 8 - 8 o'clock */}
-          <div 
-            className="absolute transform -translate-x-1/2 -translate-y-1/2" 
-            style={{ top: '65%', left: '10%' }}
-          >
-            <NumberButton onClick={() => inputNumber('8')}>8</NumberButton>
-          </div>
-          
-          {/* 9 - Left (9 o'clock) */}
-          <NumberButton 
-            onClick={() => inputNumber('9')} 
-            className="absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2"
-          >
-            9
-          </NumberButton>
+          {/* Numbers arranged in perfect circle with equal angular spacing */}
+          {Array.from({ length: 10 }, (_, i) => {
+            const number = i; // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+            // Start with 0 at top (-90 degrees) and go clockwise
+            const angle = (i * 36 - 90) * (Math.PI / 180); // 36 degrees between each number
+            const radius = 140; // Distance from center
+            const centerX = 160; // Half of container width (320px / 2)
+            const centerY = 160; // Half of container height (320px / 2)
+            
+            // Calculate position using trigonometry
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            
+            return (
+              <div
+                key={number}
+                className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: `${x}px`,
+                  top: `${y}px`,
+                }}
+              >
+                <NumberButton onClick={() => inputNumber(number.toString())}>
+                  {number}
+                </NumberButton>
+              </div>
+            );
+          })}
           
         </div>
 
