@@ -285,17 +285,20 @@ export default function Calculator({}: CalculatorProps) {
         >
           9
         </CircularButton>
-      </div>
-
-      {/* Bottom Buttons */}
-      <div className="flex justify-center gap-8 mt-8">
-        <CircularButton onClick={inputDot} className="w-12 h-12 text-2xl">
+        
+        {/* Dot - Top Right outer */}
+        <CircularButton 
+          onClick={inputDot} 
+          className="absolute top-2 right-20 w-12 h-12 text-2xl"
+        >
           .
         </CircularButton>
+        
+        {/* Equals - Top Left outer */}
         <CircularButton 
           onClick={handleEquals} 
           variant="function"
-          className="w-16 h-16 text-2xl"
+          className="absolute top-2 left-20 w-12 h-12 text-xl"
         >
           =
         </CircularButton>
