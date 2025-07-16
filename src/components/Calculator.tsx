@@ -154,6 +154,48 @@ export default function Calculator({}: CalculatorProps) {
     );
   };
 
+  const CentralCross = () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="relative w-32 h-32">
+        {/* Top-left segment - Multiply (Light Blue) */}
+        <OperationButton
+          onClick={() => performOperation('×')}
+          variant="multiply"
+          className="absolute top-0 left-0 w-16 h-16 rounded-tl-full border-r-2 border-b-2 border-white"
+        >
+          ×
+        </OperationButton>
+        
+        {/* Top-right segment - Divide (Yellow) */}
+        <OperationButton
+          onClick={() => performOperation('÷')}
+          variant="divide"
+          className="absolute top-0 right-0 w-16 h-16 rounded-tr-full border-l-2 border-b-2 border-white"
+        >
+          ÷
+        </OperationButton>
+        
+        {/* Bottom-left segment - Subtract (Orange) */}
+        <OperationButton
+          onClick={() => performOperation('-')}
+          variant="subtract"
+          className="absolute bottom-0 left-0 w-16 h-16 rounded-bl-full border-r-2 border-t-2 border-white"
+        >
+          −
+        </OperationButton>
+        
+        {/* Bottom-right segment - Add (Green) */}
+        <OperationButton
+          onClick={() => performOperation('+')}
+          variant="add"
+          className="absolute bottom-0 right-0 w-16 h-16 rounded-br-full border-l-2 border-t-2 border-white"
+        >
+          +
+        </OperationButton>
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full max-w-md mx-auto">
       {/* Display */}
@@ -178,64 +220,10 @@ export default function Calculator({}: CalculatorProps) {
         </div>
       </div>
 
-      {/* Function Buttons Row */}
-      <div className="flex justify-center gap-4 mb-6">
-        <CircularButton onClick={clear} variant="function" className="w-12 h-12 text-base">
-          +/-
-        </CircularButton>
-        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
-          %
-        </CircularButton>
-        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
-          √
-        </CircularButton>
-        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
-          x²
-        </CircularButton>
-      </div>
-
       {/* Circular Layout */}
       <div className="relative w-96 h-96 mx-auto">
         {/* Central Cross with Operations */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-32 h-32">
-            {/* Top segment - Multiply (Blue) */}
-            <OperationButton
-              onClick={() => performOperation('×')}
-              variant="multiply"
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-t-full"
-            >
-              ×
-            </OperationButton>
-            
-            {/* Right segment - Divide (Yellow) */}
-            <OperationButton
-              onClick={() => performOperation('÷')}
-              variant="divide"
-              className="absolute top-1/2 right-0 transform -translate-y-1/2 w-16 h-16 rounded-r-full"
-            >
-              ÷
-            </OperationButton>
-            
-            {/* Bottom segment - Subtract (Orange) */}
-            <OperationButton
-              onClick={() => performOperation('-')}
-              variant="subtract"
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-b-full"
-            >
-              −
-            </OperationButton>
-            
-            {/* Left segment - Add (Green) */}
-            <OperationButton
-              onClick={() => performOperation('+')}
-              variant="add"
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 w-16 h-16 rounded-l-full"
-            >
-              +
-            </OperationButton>
-          </div>
-        </div>
+        <CentralCross />
 
         {/* Numbers in Circle - Clockwise from top */}
         {/* 0 - Top (12 o'clock) */}
@@ -317,23 +305,22 @@ export default function Calculator({}: CalculatorProps) {
         >
           9
         </CircularButton>
-        
-        {/* . - 10 o'clock */}
+      </div>
+      
+      {/* Bottom Row - Dot and Equals */}
+      <div className="flex justify-center gap-8 mt-8">
         <CircularButton 
           onClick={inputDot} 
-          className="absolute top-20 left-6 text-2xl"
+          className="w-12 h-12 text-2xl"
         >
           .
         </CircularButton>
-      </div>
-      
-      {/* Bottom Corner Buttons */}
-      <div className="flex justify-between mt-8 px-8">
-        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
-          (
-        </CircularButton>
-        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
-          )
+        <CircularButton 
+          onClick={handleEquals} 
+          variant="function"
+          className="w-12 h-12 text-xl"
+        >
+          =
         </CircularButton>
       </div>
     </div>
