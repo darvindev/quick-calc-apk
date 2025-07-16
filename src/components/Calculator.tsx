@@ -77,7 +77,7 @@ export default function Calculator({}: CalculatorProps) {
     }
   };
 
-  const CalculatorButton = ({ 
+  const CircularButton = ({ 
     onClick, 
     className = '', 
     children, 
@@ -86,18 +86,22 @@ export default function Calculator({}: CalculatorProps) {
     onClick: () => void; 
     className?: string; 
     children: React.ReactNode;
-    variant?: 'number' | 'operator' | 'equals' | 'clear';
+    variant?: 'number' | 'multiply' | 'divide' | 'subtract' | 'add' | 'function';
   }) => {
     const getVariantStyles = () => {
       switch (variant) {
-        case 'operator':
-          return 'bg-calc-operator hover:bg-calc-operator/90 text-white shadow-button';
-        case 'equals':
-          return 'bg-gradient-accent hover:opacity-90 text-accent-foreground shadow-button';
-        case 'clear':
-          return 'bg-calc-clear hover:bg-calc-clear/90 text-white shadow-button';
+        case 'multiply':
+          return 'bg-calc-operator-multiply hover:bg-calc-operator-multiply/90 text-white';
+        case 'divide':
+          return 'bg-calc-operator-divide hover:bg-calc-operator-divide/90 text-white';
+        case 'subtract':
+          return 'bg-calc-operator-subtract hover:bg-calc-operator-subtract/90 text-white';
+        case 'add':
+          return 'bg-calc-operator-add hover:bg-calc-operator-add/90 text-white';
+        case 'function':
+          return 'bg-calc-function hover:bg-calc-function/90 text-white';
         default:
-          return 'bg-calc-number hover:bg-calc-number/80 text-white shadow-button';
+          return 'bg-calc-number hover:bg-calc-number/90 text-white';
       }
     };
 
@@ -105,10 +109,10 @@ export default function Calculator({}: CalculatorProps) {
       <Button
         onClick={onClick}
         className={`
-          h-14 text-lg font-semibold rounded-2xl
-          transition-all duration-200 ease-out
-          active:scale-95 active:shadow-none
-          border-0 touch-manipulation
+          w-16 h-16 rounded-full text-xl font-bold
+          transition-all duration-300 ease-out
+          active:scale-95 shadow-button hover:shadow-lg
+          border-0 touch-manipulation backdrop-blur-sm
           ${getVariantStyles()}
           ${className}
         `}
@@ -119,18 +123,15 @@ export default function Calculator({}: CalculatorProps) {
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto bg-card rounded-3xl p-4 shadow-2xl">
+    <div className="w-full max-w-md mx-auto">
       {/* Display */}
-      <div className="mb-4">
-        <div className="bg-calc-display rounded-2xl p-4 shadow-display min-h-[100px] flex flex-col justify-end">
-          <div className="text-right">
-            <div className="text-muted-foreground text-xs mb-1 h-4">
-              {previousValue !== null && operation ? `${previousValue} ${operation}` : ''}
-            </div>
+      <div className="mb-8">
+        <div className="bg-gradient-display rounded-3xl p-6 shadow-display backdrop-blur-sm border border-white/20">
+          <div className="text-center">
             <div 
-              className="font-bold text-foreground overflow-hidden break-all"
+              className="font-bold text-foreground drop-shadow-sm"
               style={{ 
-                fontSize: display.length > 10 ? '1.5rem' : display.length > 6 ? '2rem' : '2.5rem',
+                fontSize: display.length > 10 ? '2.5rem' : display.length > 6 ? '3.5rem' : '4rem',
                 lineHeight: '1.1'
               }}
             >
@@ -138,61 +139,166 @@ export default function Calculator({}: CalculatorProps) {
             </div>
           </div>
         </div>
+        <div className="text-right mt-2 mr-2">
+          <div className="text-muted-foreground text-sm bg-white/60 dark:bg-black/20 px-3 py-1 rounded-full inline-block backdrop-blur-sm">
+            {previousValue !== null && operation ? `${previousValue} ${operation}` : display}
+          </div>
+        </div>
       </div>
 
-      {/* Buttons Grid */}
-      <div className="grid grid-cols-4 gap-2">
-        {/* First Row */}
-        <CalculatorButton 
-          onClick={clear} 
-          variant="clear"
-          className="col-span-2"
-        >
-          C
-        </CalculatorButton>
-        <CalculatorButton onClick={() => performOperation('÷')} variant="operator">
-          ÷
-        </CalculatorButton>
-        <CalculatorButton onClick={() => performOperation('×')} variant="operator">
-          ×
-        </CalculatorButton>
+      {/* Function Buttons Row */}
+      <div className="flex justify-center gap-4 mb-6">
+        <CircularButton onClick={clear} variant="function" className="w-12 h-12 text-base">
+          +/-
+        </CircularButton>
+        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
+          %
+        </CircularButton>
+        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
+          √
+        </CircularButton>
+        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
+          x²
+        </CircularButton>
+      </div>
 
-        {/* Second Row */}
-        <CalculatorButton onClick={() => inputNumber('7')}>7</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('8')}>8</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('9')}>9</CalculatorButton>
-        <CalculatorButton onClick={() => performOperation('-')} variant="operator">
-          −
-        </CalculatorButton>
+      {/* Circular Layout */}
+      <div className="relative w-80 h-80 mx-auto">
+        {/* Central Operation Buttons */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-32 h-32">
+            {/* Multiply */}
+            <CircularButton 
+              onClick={() => performOperation('×')} 
+              variant="multiply"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-14 h-14"
+            >
+              ×
+            </CircularButton>
+            
+            {/* Divide */}
+            <CircularButton 
+              onClick={() => performOperation('÷')} 
+              variant="divide"
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 w-14 h-14"
+            >
+              ÷
+            </CircularButton>
+            
+            {/* Subtract */}
+            <CircularButton 
+              onClick={() => performOperation('-')} 
+              variant="subtract"
+              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-14"
+            >
+              −
+            </CircularButton>
+            
+            {/* Add */}
+            <CircularButton 
+              onClick={() => performOperation('+')} 
+              variant="add"
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 w-14 h-14"
+            >
+              +
+            </CircularButton>
+          </div>
+        </div>
 
-        {/* Third Row */}
-        <CalculatorButton onClick={() => inputNumber('4')}>4</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('5')}>5</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('6')}>6</CalculatorButton>
-        <CalculatorButton onClick={() => performOperation('+')} variant="operator">
-          +
-        </CalculatorButton>
-
-        {/* Fourth Row */}
-        <CalculatorButton onClick={() => inputNumber('1')}>1</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('2')}>2</CalculatorButton>
-        <CalculatorButton onClick={() => inputNumber('3')}>3</CalculatorButton>
-        <CalculatorButton 
-          onClick={handleEquals} 
-          variant="equals"
-          className="row-span-2"
-        >
-          =
-        </CalculatorButton>
-
-        {/* Fifth Row */}
-        <CalculatorButton 
+        {/* Number Buttons in Circle */}
+        {/* 0 - Top */}
+        <CircularButton 
           onClick={() => inputNumber('0')} 
-          className="col-span-2"
+          className="absolute top-0 left-1/2 transform -translate-x-1/2"
         >
           0
-        </CalculatorButton>
-        <CalculatorButton onClick={inputDot}>.</CalculatorButton>
+        </CircularButton>
+        
+        {/* 1 - Top Right */}
+        <CircularButton 
+          onClick={() => inputNumber('1')} 
+          className="absolute top-8 right-8"
+        >
+          1
+        </CircularButton>
+        
+        {/* 2 - Right */}
+        <CircularButton 
+          onClick={() => inputNumber('2')} 
+          className="absolute top-1/2 right-0 transform -translate-y-1/2"
+        >
+          2
+        </CircularButton>
+        
+        {/* 3 - Bottom Right */}
+        <CircularButton 
+          onClick={() => inputNumber('3')} 
+          className="absolute bottom-8 right-8"
+        >
+          3
+        </CircularButton>
+        
+        {/* 4 - Bottom Right 2 */}
+        <CircularButton 
+          onClick={() => inputNumber('4')} 
+          className="absolute bottom-2 right-20"
+        >
+          4
+        </CircularButton>
+        
+        {/* 5 - Bottom */}
+        <CircularButton 
+          onClick={() => inputNumber('5')} 
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+        >
+          5
+        </CircularButton>
+        
+        {/* 6 - Bottom Left 2 */}
+        <CircularButton 
+          onClick={() => inputNumber('6')} 
+          className="absolute bottom-2 left-20"
+        >
+          6
+        </CircularButton>
+        
+        {/* 7 - Bottom Left */}
+        <CircularButton 
+          onClick={() => inputNumber('7')} 
+          className="absolute bottom-8 left-8"
+        >
+          7
+        </CircularButton>
+        
+        {/* 8 - Left */}
+        <CircularButton 
+          onClick={() => inputNumber('8')} 
+          className="absolute top-1/2 left-0 transform -translate-y-1/2"
+        >
+          8
+        </CircularButton>
+        
+        {/* 9 - Top Left */}
+        <CircularButton 
+          onClick={() => inputNumber('9')} 
+          className="absolute top-8 left-8"
+        >
+          9
+        </CircularButton>
+      </div>
+
+      {/* Bottom Buttons */}
+      <div className="flex justify-center gap-8 mt-8">
+        <CircularButton onClick={inputDot} className="w-12 h-12 text-2xl">
+          .
+        </CircularButton>
+        <CircularButton 
+          onClick={handleEquals} 
+          variant="function"
+          className="w-16 h-16 text-2xl"
+        >
+          =
+        </CircularButton>
       </div>
     </div>
   );

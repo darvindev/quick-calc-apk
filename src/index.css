@@ -8,49 +8,53 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 25% 8%;
-    --foreground: 0 0% 98%;
+    --background: 245 20% 98%;
+    --foreground: 240 15% 15%;
 
-    --card: 220 25% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 15% 15%;
 
-    --popover: 220 25% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 15% 15%;
 
-    --primary: 270 60% 65%;
+    --primary: 260 80% 70%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 220 25% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 240 15% 95%;
+    --secondary-foreground: 240 15% 15%;
 
-    --muted: 220 25% 15%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 240 10% 95%;
+    --muted-foreground: 240 10% 50%;
 
-    --accent: 45 100% 60%;
-    --accent-foreground: 220 25% 8%;
+    --accent: 260 80% 70%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 25% 20%;
-    --input: 220 25% 15%;
-    --ring: 270 60% 65%;
+    --border: 240 15% 90%;
+    --input: 240 15% 95%;
+    --ring: 260 80% 70%;
 
     /* Calculator specific colors */
-    --calc-display: 220 25% 12%;
-    --calc-number: 220 25% 18%;
-    --calc-operator: 270 60% 55%;
-    --calc-equals: 45 100% 55%;
-    --calc-clear: 0 84% 55%;
-
+    --calc-display: 260 60% 98%;
+    --calc-number: 250 60% 75%;
+    --calc-operator-multiply: 190 70% 75%;
+    --calc-operator-divide: 45 85% 75%;
+    --calc-operator-subtract: 25 85% 70%;
+    --calc-operator-add: 140 60% 70%;
+    --calc-function: 330 60% 75%;
+    
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(270 60% 65%), hsl(270 60% 45%));
-    --gradient-accent: linear-gradient(135deg, hsl(45 100% 60%), hsl(45 100% 50%));
-    --gradient-bg: linear-gradient(180deg, hsl(220 25% 8%), hsl(220 25% 12%));
+    --gradient-bg: linear-gradient(135deg, hsl(260 60% 92%) 0%, hsl(280 70% 88%) 50%, hsl(300 60% 85%) 100%);
+    --gradient-display: linear-gradient(135deg, hsl(260 80% 95%) 0%, hsl(280 60% 90%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(260 80% 70%), hsl(260 80% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(260 80% 70%), hsl(280 70% 75%));
 
     /* Shadows */
-    --shadow-button: 0 4px 12px hsl(220 25% 5% / 0.4);
-    --shadow-display: inset 0 2px 8px hsl(220 25% 5% / 0.5);
+    --shadow-button: 0 6px 20px hsl(260 50% 60% / 0.3);
+    --shadow-display: 0 8px 32px hsl(260 40% 70% / 0.2);
+    --shadow-inset: inset 0 2px 8px hsl(260 30% 85%);
 
     --radius: 0.5rem;
 
@@ -72,33 +76,53 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 15% 8%;
+    --foreground: 240 10% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 15% 10%;
+    --card-foreground: 240 10% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 240 10% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 260 80% 70%;
+    --primary-foreground: 240 15% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 15% 15%;
+    --secondary-foreground: 240 10% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 15% 15%;
+    --muted-foreground: 240 10% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 260 80% 70%;
+    --accent-foreground: 240 15% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 240 15% 20%;
+    --input: 240 15% 15%;
+    --ring: 260 80% 70%;
+
+    /* Calculator specific colors for dark mode */
+    --calc-display: 240 20% 12%;
+    --calc-number: 250 40% 45%;
+    --calc-operator-multiply: 190 50% 45%;
+    --calc-operator-divide: 45 60% 45%;
+    --calc-operator-subtract: 25 60% 45%;
+    --calc-operator-add: 140 40% 45%;
+    --calc-function: 330 40% 45%;
+    
+    /* Dark mode gradients */
+    --gradient-bg: linear-gradient(135deg, hsl(240 20% 6%) 0%, hsl(260 25% 10%) 50%, hsl(280 20% 8%) 100%);
+    --gradient-display: linear-gradient(135deg, hsl(240 25% 15%) 0%, hsl(260 20% 12%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(260 60% 50%), hsl(260 60% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(260 60% 50%), hsl(280 50% 55%));
+
+    /* Dark mode shadows */
+    --shadow-button: 0 6px 20px hsl(0 0% 0% / 0.4);
+    --shadow-display: 0 8px 32px hsl(0 0% 0% / 0.3);
+    --shadow-inset: inset 0 2px 8px hsl(240 30% 5%);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
