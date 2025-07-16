@@ -164,49 +164,19 @@ export default function Calculator({}: CalculatorProps) {
 
       {/* Circular Layout */}
       <div className="relative w-80 h-80 mx-auto">
-        {/* Central Operation Buttons */}
+        {/* Central Equals Button */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-32 h-32">
-            {/* Multiply */}
-            <CircularButton 
-              onClick={() => performOperation('×')} 
-              variant="multiply"
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-14 h-14"
-            >
-              ×
-            </CircularButton>
-            
-            {/* Divide */}
-            <CircularButton 
-              onClick={() => performOperation('÷')} 
-              variant="divide"
-              className="absolute top-1/2 right-0 transform -translate-y-1/2 w-14 h-14"
-            >
-              ÷
-            </CircularButton>
-            
-            {/* Subtract */}
-            <CircularButton 
-              onClick={() => performOperation('-')} 
-              variant="subtract"
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-14"
-            >
-              −
-            </CircularButton>
-            
-            {/* Add */}
-            <CircularButton 
-              onClick={() => performOperation('+')} 
-              variant="add"
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 w-14 h-14"
-            >
-              +
-            </CircularButton>
-          </div>
+          <CircularButton 
+            onClick={handleEquals} 
+            variant="function"
+            className="w-20 h-20 text-2xl shadow-lg"
+          >
+            =
+          </CircularButton>
         </div>
 
-        {/* Number Buttons in Circle */}
-        {/* 0 - Top */}
+        {/* Numbers and Dot in Circle - Starting from top and going clockwise */}
+        {/* 0 - Top (12 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('0')} 
           className="absolute top-0 left-1/2 transform -translate-x-1/2"
@@ -214,93 +184,121 @@ export default function Calculator({}: CalculatorProps) {
           0
         </CircularButton>
         
-        {/* 1 - Top Right */}
+        {/* 1 - Top Right (1 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('1')} 
-          className="absolute top-8 right-8"
+          className="absolute top-4 right-12"
         >
           1
         </CircularButton>
         
-        {/* 2 - Right */}
+        {/* 2 - Right Top (2 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('2')} 
-          className="absolute top-1/2 right-0 transform -translate-y-1/2"
+          className="absolute top-12 right-4"
         >
           2
         </CircularButton>
         
-        {/* 3 - Bottom Right */}
+        {/* 3 - Right (3 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('3')} 
-          className="absolute bottom-8 right-8"
+          className="absolute top-1/2 right-0 transform -translate-y-1/2"
         >
           3
         </CircularButton>
         
-        {/* 4 - Bottom Right 2 */}
+        {/* 4 - Right Bottom (4 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('4')} 
-          className="absolute bottom-2 right-20"
+          className="absolute bottom-12 right-4"
         >
           4
         </CircularButton>
         
-        {/* 5 - Bottom */}
+        {/* 5 - Bottom Right (5 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('5')} 
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-4 right-12"
         >
           5
         </CircularButton>
         
-        {/* 6 - Bottom Left 2 */}
+        {/* 6 - Bottom (6 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('6')} 
-          className="absolute bottom-2 left-20"
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
         >
           6
         </CircularButton>
         
-        {/* 7 - Bottom Left */}
+        {/* 7 - Bottom Left (7 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('7')} 
-          className="absolute bottom-8 left-8"
+          className="absolute bottom-4 left-12"
         >
           7
         </CircularButton>
         
-        {/* 8 - Left */}
+        {/* 8 - Left Bottom (8 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('8')} 
-          className="absolute top-1/2 left-0 transform -translate-y-1/2"
+          className="absolute bottom-12 left-4"
         >
           8
         </CircularButton>
         
-        {/* 9 - Top Left */}
+        {/* 9 - Left (9 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('9')} 
-          className="absolute top-8 left-8"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2"
         >
           9
         </CircularButton>
         
-        {/* Dot - Top Right outer */}
+        {/* Dot - Left Top (10 o'clock) */}
         <CircularButton 
           onClick={inputDot} 
-          className="absolute top-2 right-20 w-12 h-12 text-2xl"
+          className="absolute top-12 left-4 text-2xl"
         >
           .
         </CircularButton>
-        
-        {/* Equals - Top Left outer */}
+
+        {/* Operation Buttons - Positioned outside the main circle */}
+        {/* Addition - Top Left Corner */}
         <CircularButton 
-          onClick={handleEquals} 
-          variant="function"
-          className="absolute top-2 left-20 w-12 h-12 text-xl"
+          onClick={() => performOperation('+')} 
+          variant="add"
+          className="absolute top-0 left-0 w-12 h-12 text-lg"
         >
-          =
+          +
+        </CircularButton>
+        
+        {/* Subtraction - Top Right Corner */}
+        <CircularButton 
+          onClick={() => performOperation('-')} 
+          variant="subtract"
+          className="absolute top-0 right-0 w-12 h-12 text-lg"
+        >
+          −
+        </CircularButton>
+        
+        {/* Multiplication - Bottom Left Corner */}
+        <CircularButton 
+          onClick={() => performOperation('×')} 
+          variant="multiply"
+          className="absolute bottom-0 left-0 w-12 h-12 text-lg"
+        >
+          ×
+        </CircularButton>
+        
+        {/* Division - Bottom Right Corner */}
+        <CircularButton 
+          onClick={() => performOperation('÷')} 
+          variant="divide"
+          className="absolute bottom-0 right-0 w-12 h-12 text-lg"
+        >
+          ÷
         </CircularButton>
       </div>
     </div>
