@@ -86,22 +86,14 @@ export default function Calculator({}: CalculatorProps) {
     onClick: () => void; 
     className?: string; 
     children: React.ReactNode;
-    variant?: 'number' | 'multiply' | 'divide' | 'subtract' | 'add' | 'function';
+    variant?: 'number' | 'function';
   }) => {
     const getVariantStyles = () => {
       switch (variant) {
-        case 'multiply':
-          return 'bg-calc-operator-multiply hover:bg-calc-operator-multiply/90 text-white';
-        case 'divide':
-          return 'bg-calc-operator-divide hover:bg-calc-operator-divide/90 text-white';
-        case 'subtract':
-          return 'bg-calc-operator-subtract hover:bg-calc-operator-subtract/90 text-white';
-        case 'add':
-          return 'bg-calc-operator-add hover:bg-calc-operator-add/90 text-white';
         case 'function':
-          return 'bg-calc-function hover:bg-calc-function/90 text-white';
+          return 'bg-pink-300 hover:bg-pink-400 text-white';
         default:
-          return 'bg-calc-number hover:bg-calc-number/90 text-white';
+          return 'bg-purple-300 hover:bg-purple-400 text-white';
       }
     };
 
@@ -111,8 +103,48 @@ export default function Calculator({}: CalculatorProps) {
         className={`
           w-16 h-16 rounded-full text-xl font-bold
           transition-all duration-300 ease-out
-          active:scale-95 shadow-button hover:shadow-lg
-          border-0 touch-manipulation backdrop-blur-sm
+          active:scale-95 shadow-lg
+          border-0 touch-manipulation
+          ${getVariantStyles()}
+          ${className}
+        `}
+      >
+        {children}
+      </Button>
+    );
+  };
+
+  const OperationButton = ({ 
+    onClick, 
+    children, 
+    variant,
+    className = ''
+  }: { 
+    onClick: () => void; 
+    children: React.ReactNode;
+    variant: 'multiply' | 'divide' | 'subtract' | 'add';
+    className?: string;
+  }) => {
+    const getVariantStyles = () => {
+      switch (variant) {
+        case 'multiply':
+          return 'bg-blue-400 hover:bg-blue-500';
+        case 'divide':
+          return 'bg-yellow-400 hover:bg-yellow-500';
+        case 'subtract':
+          return 'bg-orange-400 hover:bg-orange-500';
+        case 'add':
+          return 'bg-green-400 hover:bg-green-500';
+      }
+    };
+
+    return (
+      <Button
+        onClick={onClick}
+        className={`
+          text-white text-2xl font-bold
+          transition-all duration-300 ease-out
+          active:scale-95 border-0 touch-manipulation
           ${getVariantStyles()}
           ${className}
         `}
@@ -163,19 +195,49 @@ export default function Calculator({}: CalculatorProps) {
       </div>
 
       {/* Circular Layout */}
-      <div className="relative w-80 h-80 mx-auto">
-        {/* Central Equals Button */}
+      <div className="relative w-96 h-96 mx-auto">
+        {/* Central Cross with Operations */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <CircularButton 
-            onClick={handleEquals} 
-            variant="function"
-            className="w-20 h-20 text-2xl shadow-lg"
-          >
-            =
-          </CircularButton>
+          <div className="relative w-32 h-32">
+            {/* Top segment - Multiply (Blue) */}
+            <OperationButton
+              onClick={() => performOperation('×')}
+              variant="multiply"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-t-full"
+            >
+              ×
+            </OperationButton>
+            
+            {/* Right segment - Divide (Yellow) */}
+            <OperationButton
+              onClick={() => performOperation('÷')}
+              variant="divide"
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 w-16 h-16 rounded-r-full"
+            >
+              ÷
+            </OperationButton>
+            
+            {/* Bottom segment - Subtract (Orange) */}
+            <OperationButton
+              onClick={() => performOperation('-')}
+              variant="subtract"
+              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-b-full"
+            >
+              −
+            </OperationButton>
+            
+            {/* Left segment - Add (Green) */}
+            <OperationButton
+              onClick={() => performOperation('+')}
+              variant="add"
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 w-16 h-16 rounded-l-full"
+            >
+              +
+            </OperationButton>
+          </div>
         </div>
 
-        {/* Numbers and Dot in Circle - Starting from top and going clockwise */}
+        {/* Numbers in Circle - Clockwise from top */}
         {/* 0 - Top (12 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('0')} 
@@ -184,18 +246,18 @@ export default function Calculator({}: CalculatorProps) {
           0
         </CircularButton>
         
-        {/* 1 - Top Right (1 o'clock) */}
+        {/* 1 - 1 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('1')} 
-          className="absolute top-4 right-12"
+          className="absolute top-6 right-20"
         >
           1
         </CircularButton>
         
-        {/* 2 - Right Top (2 o'clock) */}
+        {/* 2 - 2 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('2')} 
-          className="absolute top-12 right-4"
+          className="absolute top-20 right-6"
         >
           2
         </CircularButton>
@@ -208,18 +270,18 @@ export default function Calculator({}: CalculatorProps) {
           3
         </CircularButton>
         
-        {/* 4 - Right Bottom (4 o'clock) */}
+        {/* 4 - 4 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('4')} 
-          className="absolute bottom-12 right-4"
+          className="absolute bottom-20 right-6"
         >
           4
         </CircularButton>
         
-        {/* 5 - Bottom Right (5 o'clock) */}
+        {/* 5 - 5 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('5')} 
-          className="absolute bottom-4 right-12"
+          className="absolute bottom-6 right-20"
         >
           5
         </CircularButton>
@@ -232,18 +294,18 @@ export default function Calculator({}: CalculatorProps) {
           6
         </CircularButton>
         
-        {/* 7 - Bottom Left (7 o'clock) */}
+        {/* 7 - 7 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('7')} 
-          className="absolute bottom-4 left-12"
+          className="absolute bottom-6 left-20"
         >
           7
         </CircularButton>
         
-        {/* 8 - Left Bottom (8 o'clock) */}
+        {/* 8 - 8 o'clock */}
         <CircularButton 
           onClick={() => inputNumber('8')} 
-          className="absolute bottom-12 left-4"
+          className="absolute bottom-20 left-6"
         >
           8
         </CircularButton>
@@ -256,49 +318,22 @@ export default function Calculator({}: CalculatorProps) {
           9
         </CircularButton>
         
-        {/* Dot - Left Top (10 o'clock) */}
+        {/* . - 10 o'clock */}
         <CircularButton 
           onClick={inputDot} 
-          className="absolute top-12 left-4 text-2xl"
+          className="absolute top-20 left-6 text-2xl"
         >
           .
         </CircularButton>
-
-        {/* Operation Buttons - Positioned outside the main circle */}
-        {/* Addition - Top Left Corner */}
-        <CircularButton 
-          onClick={() => performOperation('+')} 
-          variant="add"
-          className="absolute top-0 left-0 w-12 h-12 text-lg"
-        >
-          +
+      </div>
+      
+      {/* Bottom Corner Buttons */}
+      <div className="flex justify-between mt-8 px-8">
+        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
+          (
         </CircularButton>
-        
-        {/* Subtraction - Top Right Corner */}
-        <CircularButton 
-          onClick={() => performOperation('-')} 
-          variant="subtract"
-          className="absolute top-0 right-0 w-12 h-12 text-lg"
-        >
-          −
-        </CircularButton>
-        
-        {/* Multiplication - Bottom Left Corner */}
-        <CircularButton 
-          onClick={() => performOperation('×')} 
-          variant="multiply"
-          className="absolute bottom-0 left-0 w-12 h-12 text-lg"
-        >
-          ×
-        </CircularButton>
-        
-        {/* Division - Bottom Right Corner */}
-        <CircularButton 
-          onClick={() => performOperation('÷')} 
-          variant="divide"
-          className="absolute bottom-0 right-0 w-12 h-12 text-lg"
-        >
-          ÷
+        <CircularButton onClick={() => {}} variant="function" className="w-12 h-12 text-base">
+          )
         </CircularButton>
       </div>
     </div>
