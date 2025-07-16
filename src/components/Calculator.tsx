@@ -225,83 +225,77 @@ export default function Calculator({}: CalculatorProps) {
         {/* Central Cross with Operations */}
         <CentralCross />
 
-        {/* Numbers in Circle - Clockwise from top */}
+        {/* Numbers in Perfect Circle - Using precise positioning */}
         {/* 0 - Top (12 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('0')} 
-          className="absolute top-0 left-1/2 transform -translate-x-1/2"
+          className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
           0
         </CircularButton>
         
         {/* 1 - 1 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('1')} 
-          className="absolute top-6 right-20"
-        >
-          1
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '15%', left: '75%' }}>
+          <CircularButton onClick={() => inputNumber('1')}>
+            1
+          </CircularButton>
+        </div>
         
         {/* 2 - 2 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('2')} 
-          className="absolute top-20 right-6"
-        >
-          2
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '35%', left: '90%' }}>
+          <CircularButton onClick={() => inputNumber('2')}>
+            2
+          </CircularButton>
+        </div>
         
         {/* 3 - Right (3 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('3')} 
-          className="absolute top-1/2 right-0 transform -translate-y-1/2"
+          className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2"
         >
           3
         </CircularButton>
         
         {/* 4 - 4 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('4')} 
-          className="absolute bottom-20 right-6"
-        >
-          4
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '65%', left: '90%' }}>
+          <CircularButton onClick={() => inputNumber('4')}>
+            4
+          </CircularButton>
+        </div>
         
         {/* 5 - 5 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('5')} 
-          className="absolute bottom-6 right-20"
-        >
-          5
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '85%', left: '75%' }}>
+          <CircularButton onClick={() => inputNumber('5')}>
+            5
+          </CircularButton>
+        </div>
         
         {/* 6 - Bottom (6 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('6')} 
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2"
         >
           6
         </CircularButton>
         
         {/* 7 - 7 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('7')} 
-          className="absolute bottom-6 left-20"
-        >
-          7
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '85%', left: '25%' }}>
+          <CircularButton onClick={() => inputNumber('7')}>
+            7
+          </CircularButton>
+        </div>
         
         {/* 8 - 8 o'clock */}
-        <CircularButton 
-          onClick={() => inputNumber('8')} 
-          className="absolute bottom-20 left-6"
-        >
-          8
-        </CircularButton>
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ top: '65%', left: '10%' }}>
+          <CircularButton onClick={() => inputNumber('8')}>
+            8
+          </CircularButton>
+        </div>
         
         {/* 9 - Left (9 o'clock) */}
         <CircularButton 
           onClick={() => inputNumber('9')} 
-          className="absolute top-1/2 left-0 transform -translate-y-1/2"
+          className="absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2"
         >
           9
         </CircularButton>
