@@ -174,16 +174,16 @@ export default function Calculator({}: CalculatorProps) {
     );
   };
 
-  // Equals Button Component (Pink, Floating)
+  // Equals Button Component (Pink, Emphasized)
   const EqualsButton = () => (
     <Button
       onClick={handleEquals}
       className="
-        w-16 h-16 rounded-full text-white font-bold text-2xl
+        w-20 h-20 rounded-full text-white font-bold text-3xl
         transition-all duration-300 ease-out
         active:scale-95 hover:scale-110
         animate-float shadow-float
-        absolute right-8 bottom-32
+        mx-auto block
       "
       style={{ 
         backgroundColor: 'hsl(var(--calc-equals))',
@@ -327,15 +327,17 @@ export default function Calculator({}: CalculatorProps) {
           </FunctionButton>
         </div>
 
+        {/* Centered Equals Button with proper spacing */}
+        <div className="flex justify-center mb-8">
+          <EqualsButton />
+        </div>
+
         {/* Clear button at bottom */}
         <div className="flex justify-center">
           <FunctionButton onClick={clear} className="w-20 h-14">
             CLEAR
           </FunctionButton>
         </div>
-
-        {/* Floating Equals Button */}
-        <EqualsButton />
         
       </div>
     </div>
