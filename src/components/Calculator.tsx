@@ -81,24 +81,30 @@ export default function Calculator({}: CalculatorProps) {
   const FunctionButton = ({ 
     onClick, 
     children,
-    className = ''
+    className = '',
+    style = {}
   }: { 
     onClick: () => void; 
     children: React.ReactNode;
     className?: string;
+    style?: React.CSSProperties;
   }) => (
     <Button
       onClick={onClick}
       className={`
-        w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white font-bold text-sm sm:text-lg
+        rounded-full text-white font-bold
         transition-all duration-300 ease-out
         active:scale-95 hover:scale-105
         neumorphism hover:shadow-float
         ${className}
       `}
       style={{ 
+        width: 'clamp(2.5rem, 12vw, 3.5rem)',
+        height: 'clamp(2.5rem, 12vw, 3.5rem)',
+        fontSize: 'clamp(0.6rem, 2.5vw, 1rem)',
         backgroundColor: 'hsl(var(--calc-function))',
-        boxShadow: 'var(--shadow-neumorphism)'
+        boxShadow: 'var(--shadow-neumorphism)',
+        ...style
       }}
     >
       {children}
@@ -118,13 +124,16 @@ export default function Calculator({}: CalculatorProps) {
     <Button
       onClick={onClick}
       className={`
-        w-12 h-12 sm:w-16 sm:h-16 rounded-full text-white font-bold text-lg sm:text-xl
+        rounded-full text-white font-bold
         transition-all duration-300 ease-out
         active:scale-95 hover:scale-105
         neumorphism hover:shadow-float
         ${className}
       `}
       style={{ 
+        width: 'clamp(3rem, 15vw, 4rem)',
+        height: 'clamp(3rem, 15vw, 4rem)',
+        fontSize: 'clamp(1rem, 4vw, 1.5rem)',
         backgroundColor: 'hsl(var(--calc-number))',
         boxShadow: 'var(--shadow-neumorphism)'
       }}
@@ -199,16 +208,16 @@ export default function Calculator({}: CalculatorProps) {
 
   return (
     <div className="min-h-screen bg-calc-gradient relative overflow-hidden">
-      <div className="w-full max-w-xs sm:max-w-sm mx-auto px-3 sm:px-6 py-4 sm:py-8 relative">
+      <div className="w-full max-w-[95vw] mx-auto px-2 py-4 relative">
         
         {/* Large Display at Top */}
-        <div className="mb-8 sm:mb-12 mt-4 sm:mt-8">
-          <div className="bg-calc-display rounded-2xl sm:rounded-3xl p-4 sm:p-8 neumorphism">
+        <div className="mb-6 mt-4">
+          <div className="bg-calc-display rounded-2xl p-4 neumorphism">
             <div className="text-right">
               <div 
                 className="font-bold drop-shadow-sm"
                 style={{ 
-                  fontSize: display.length > 8 ? '1.8rem' : display.length > 5 ? '2.5rem' : '3.2rem',
+                  fontSize: display.length > 8 ? 'clamp(1.5rem, 4vw, 2rem)' : display.length > 5 ? 'clamp(2rem, 6vw, 3rem)' : 'clamp(2.5rem, 8vw, 4rem)',
                   lineHeight: '1.1',
                   color: 'hsl(var(--calc-display-text))'
                 }}
@@ -216,7 +225,7 @@ export default function Calculator({}: CalculatorProps) {
                 {display}
               </div>
               {previousValue !== null && operation && (
-                <div className="text-sm sm:text-lg opacity-60 mt-2">
+                <div className="text-xs opacity-60 mt-2" style={{ fontSize: 'clamp(0.75rem, 3vw, 1rem)' }}>
                   {previousValue} {operation}
                 </div>
               )}
@@ -225,7 +234,7 @@ export default function Calculator({}: CalculatorProps) {
         </div>
 
         {/* Top Function Buttons Row */}
-        <div className="flex justify-center gap-2 sm:gap-4 mb-8 sm:mb-12">
+        <div className="flex justify-center gap-2 mb-6">
           <FunctionButton onClick={() => setDisplay(prev => (parseFloat(prev) * -1).toString())}>
             +/-
           </FunctionButton>
@@ -241,7 +250,7 @@ export default function Calculator({}: CalculatorProps) {
         </div>
 
         {/* Circular Number Pad with Central Operations - Responsive */}
-        <div className="relative mx-auto mb-8 sm:mb-16" style={{ width: 'min(280px, 80vw)', height: 'min(280px, 80vw)' }}>
+        <div className="relative mx-auto mb-6" style={{ width: 'min(300px, 85vw)', height: 'min(300px, 85vw)' }}>
           
           {/* Central Cross with Four Operations */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -321,11 +330,11 @@ export default function Calculator({}: CalculatorProps) {
         </div>
 
         {/* Bottom Row - Decimal Point and Parentheses */}
-        <div className="flex justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
+        <div className="flex justify-center gap-4 mb-4">
           <FunctionButton onClick={() => {}}>
             (
           </FunctionButton>
-          <NumberButton onClick={inputDot} className="text-2xl sm:text-3xl">
+          <NumberButton onClick={inputDot}>
             .
           </NumberButton>
           <FunctionButton onClick={() => {}}>
@@ -334,13 +343,25 @@ export default function Calculator({}: CalculatorProps) {
         </div>
 
         {/* Centered Equals Button with proper spacing */}
-        <div className="flex justify-center mb-6 sm:mb-8">
-          <EqualsButton />
+        <div className="flex justify-center mb-6">
+          <Button
+            onClick={handleEquals}
+            className="rounded-full text-white font-bold transition-all duration-300 ease-out active:scale-95 hover:scale-110 animate-float shadow-float mx-auto block"
+            style={{ 
+              width: 'clamp(4rem, 18vw, 5rem)',
+              height: 'clamp(4rem, 18vw, 5rem)',
+              fontSize: 'clamp(1.5rem, 6vw, 2rem)',
+              backgroundColor: 'hsl(var(--calc-equals))',
+              boxShadow: 'var(--shadow-float)'
+            }}
+          >
+            =
+          </Button>
         </div>
 
         {/* Clear button at bottom */}
         <div className="flex justify-center">
-          <FunctionButton onClick={clear} className="w-16 sm:w-20 h-12 sm:h-14 text-sm sm:text-base">
+          <FunctionButton onClick={clear} style={{ width: 'clamp(4rem, 20vw, 5rem)', height: 'clamp(3rem, 12vw, 3.5rem)' }}>
             CLEAR
           </FunctionButton>
         </div>
