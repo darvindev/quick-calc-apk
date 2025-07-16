@@ -105,9 +105,10 @@ export default function Calculator({}: CalculatorProps) {
       <Button
         onClick={onClick}
         className={`
-          h-16 text-xl font-semibold rounded-xl
+          h-14 text-lg font-semibold rounded-2xl
           transition-all duration-200 ease-out
           active:scale-95 active:shadow-none
+          border-0 touch-manipulation
           ${getVariantStyles()}
           ${className}
         `}
@@ -118,19 +119,19 @@ export default function Calculator({}: CalculatorProps) {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-card rounded-2xl p-6 shadow-2xl">
+    <div className="w-full max-w-xs mx-auto bg-card rounded-3xl p-4 shadow-2xl">
       {/* Display */}
-      <div className="mb-6">
-        <div className="bg-calc-display rounded-xl p-6 shadow-display">
+      <div className="mb-4">
+        <div className="bg-calc-display rounded-2xl p-4 shadow-display min-h-[100px] flex flex-col justify-end">
           <div className="text-right">
-            <div className="text-muted-foreground text-sm mb-1">
+            <div className="text-muted-foreground text-xs mb-1 h-4">
               {previousValue !== null && operation ? `${previousValue} ${operation}` : ''}
             </div>
             <div 
-              className="text-4xl font-bold text-foreground overflow-hidden"
+              className="font-bold text-foreground overflow-hidden break-all"
               style={{ 
-                fontSize: display.length > 8 ? '2rem' : '2.5rem',
-                lineHeight: '1.2'
+                fontSize: display.length > 10 ? '1.5rem' : display.length > 6 ? '2rem' : '2.5rem',
+                lineHeight: '1.1'
               }}
             >
               {display}
@@ -140,14 +141,14 @@ export default function Calculator({}: CalculatorProps) {
       </div>
 
       {/* Buttons Grid */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-2">
         {/* First Row */}
         <CalculatorButton 
           onClick={clear} 
           variant="clear"
           className="col-span-2"
         >
-          Clear
+          C
         </CalculatorButton>
         <CalculatorButton onClick={() => performOperation('÷')} variant="operator">
           ÷
